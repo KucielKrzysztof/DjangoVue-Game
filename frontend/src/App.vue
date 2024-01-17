@@ -32,27 +32,17 @@
 							<img :src="require('@/assets/scissors.png')" alt="Scissors" />
 						</button>
 						<h2>Round result:</h2>
-						<div
-							style="
-								display: flex;
-								justify-content: center;
-								align-items: center;
-							"
-						>
+						<div style="display: flex; justify-content: center; align-items: center; gap: 32px">
+							<p v-if="playerMove">Your move:</p>
+							<p v-if="opponentMove">Enemy Move:</p>
+						</div>
+						<div style="display: flex; justify-content: center; align-items: center">
 							<p v-if="playerMove">
-								Your move&gt;
-								<img
-									:src="require(`@/assets/${playerMove}.png`)"
-									alt="Player's Move"
-								/>
+								<img :src="require(`@/assets/${playerMove}.png`)" alt="Player's Move" />
 							</p>
+							VS
 							<p v-if="opponentMove">
-								VS
-								<img
-									:src="require(`@/assets/${opponentMove}.png`)"
-									alt="Oponent's move"
-								/>
-								&lt;Oponent's Move
+								<img :src="require(`@/assets/${opponentMove}.png`)" alt="Oponent's move" />
 							</p>
 						</div>
 						<p v-if="gameResult">
@@ -68,30 +58,18 @@
 							<span style="color: red">{{ streakPoints }}</span>
 						</p>
 						<label for="playerName">Enter your name:</label>
-						<input v-model="playerName" id="playerName" type="text" />
+						<input v-model="playerName" id="playerName" type="text" maxlength="6" />
 						<br />
-						<button
-							@click="submitScore"
-							class="bordered_button"
-							style="margin-top: 10px; margin-bottom: 10px"
-						>
-							Submit Score
-						</button>
-						<br /><button @click="reloadPage" class="bordered_button">
-							Retry
-						</button>
+						<button @click="submitScore" class="bordered_button" style="margin-top: 10px; margin-bottom: 10px">Submit Score</button>
+						<br /><button @click="reloadPage" class="bordered_button">Retry</button>
 					</div>
 
 					<div v-else-if="gameOver">
 						<h2><span style="color: red">Game Over</span></h2>
 						<p>
-							Your streak points:
-							<span style="color: red">{{ streakPoints }}</span>
+							Your streak points:<span style="color: red">{{ streakPoints }}</span>
 						</p>
-						<p>
-							Sorry, you didn't score any points this time. Better luck next
-							time!
-						</p>
+						<p>Sorry, you didn't score any points this time. Better luck next time!</p>
 						<button @click="reloadPage" class="bordered_button">Retry</button>
 					</div>
 				</div>

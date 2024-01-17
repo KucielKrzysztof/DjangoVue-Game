@@ -22,8 +22,8 @@ button:hover {
 }
 .menu-buttons {
 	display: flex;
-	flex-direction: column; /* Makes the buttons stack vertically */
-	align-items: center; /* Centers the buttons horizontally */
+	flex-direction: column;
+	align-items: center;
 	gap: 0px;
 }
 .aqua:hover {
@@ -44,4 +44,30 @@ button:hover {
 .hover_bordered_button:hover {
 	border: 2px solid aqua;
 	border-radius: 5px;
+}
+@media (max-width: 700px) {
+	body {
+		font-size: 14px;
+	}
+	button {
+		font-size: 15px;
+	}
+
+	.menu-buttons {
+		gap: 10px;
+	}
+
+	.bordered_button,
+	.hover_bordered_button {
+		border-width: 1px;
+		border-radius: 3px;
+	}
+	.logo {
+		font-size: 30px !important;
+		color: aqua !important;
+		margin-bottom: 100px !important;
+	}
+	/* div {
+		font-size: 12px;
+	} */
 }

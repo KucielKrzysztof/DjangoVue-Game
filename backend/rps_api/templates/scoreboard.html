@@ -3,43 +3,30 @@
 <html>
 	<head>
 		<title>Scoreboard</title>
-		<link
-			rel="stylesheet"
-			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-		/>
+		<link rel="icon" href="{%static 'images/logo.png'%}" type="image/x-icon" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-			rel="stylesheet"
-		/>
-		<link
-			rel="stylesheet"
-			tyle="text/css"
-			href="{% static 'css/main.min.css'%}"
-		/>
+		<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" tyle="text/css" href="{% static 'css/main.min.css'%}" />
 		<link rel="stylesheet" tyle="text/css" href="{% static 'css/style.css'%}" />
 	</head>
 	<body>
 		<div class="container">
-			{% comment %}
-			<div class="box-element">
-				<button><a href="http://localhost:8080">Home</a></button>
-			</div>
-			{% endcomment %}
-			<h1 class="text-center my-4">Scoreboard</h1>
+			<h1 class="scoreboard-title text-center my-4">Scoreboard</h1>
 
-			<div class="box-element col-lg-7 mx-auto">
+			<div class="box-element col-12 col-sm-10 col-md-8 col-lg-7 mx-auto">
 				<div class="row">
-					<div class="col-lg-2">Rank:</div>
-					<div class="col">Player Name:</div>
-					<div class="col">Score:</div>
+					<div class="col-3 col-lg-2">Rank:</div>
+					<div class="col-6 col-lg-7">Player Name:</div>
+					<div class="col-3 col-lg-3">Score:</div>
 				</div>
 				{% for score in scores %}
-				<div class="row border-top">
-					<div class="col-lg-2">{{ forloop.counter }}</div>
-					<div class="col">{{ score.player_name }}</div>
-					<div class="col">{{ score.max_score }}</div>
+				<div class="row border-top row1">
+					<div class="col-3 col-lg-2 {% if forloop.counter <= 1 %}gold-text{% endif %}">{{ forloop.counter }}</div>
+					<div class="col-6 col-lg-7 {% if forloop.counter <= 1 %}gold-text{% endif %}">{{ score.player_name }}</div>
+					<div class="col-3 col-lg-3 {% if forloop.counter <= 1 %}gold-text{% endif %}">{{ score.max_score }}</div>
 				</div>
 				{% endfor %}
 			</div>
