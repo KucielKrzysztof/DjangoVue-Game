@@ -11,8 +11,8 @@
 					<!-- Menu gry/Starting Page coś takiego-->
 					<div v-if="!gameStarted">
 						<div class="menu-buttons">
-							<button @click="startGame" class="aqua">Start</button>
-							<button @click="goToScoreboard" class="aqua">Scoreboard</button>
+							<button @click="startGame" class="aqua menu-button">Start</button>
+							<button @click="goToScoreboard" class="aqua menu-button">Scoreboard</button>
 						</div>
 					</div>
 
@@ -61,7 +61,7 @@
 						<input v-model="playerName" id="playerName" type="text" maxlength="6" />
 						<br />
 						<button @click="submitScore" class="bordered_button" style="margin-top: 10px; margin-bottom: 10px">Submit Score</button>
-						<br /><button @click="reloadPage" class="bordered_button">Retry</button>
+						<br /><button @click="reloadPage" class="btn btn-primary">Retry</button>
 					</div>
 
 					<div v-else-if="gameOver">
@@ -70,7 +70,7 @@
 							Your streak points:<span style="color: red">{{ streakPoints }}</span>
 						</p>
 						<p>Sorry, you didn't score any points this time. Better luck next time!</p>
-						<button @click="reloadPage" class="bordered_button">Retry</button>
+						<button @click="reloadPage" class="btn btn-primary">Retry</button>
 					</div>
 				</div>
 			</b-col>

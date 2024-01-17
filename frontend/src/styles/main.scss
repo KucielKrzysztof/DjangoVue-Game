@@ -12,7 +12,7 @@ body {
 button {
 	margin: 0px;
 	padding: 5px 10px;
-	font-size: 30px;
+	font-size: 16px;
 	border: none;
 	background: transparent;
 	color: rgb(255, 255, 255);
@@ -25,6 +25,9 @@ button:hover {
 	flex-direction: column;
 	align-items: center;
 	gap: 0px;
+}
+.menu-button {
+	font-size: 30px !important;
 }
 .aqua:hover {
 	color: aqua !important;
@@ -59,8 +62,7 @@ button:hover {
 
 	.bordered_button,
 	.hover_bordered_button {
-		border-width: 1px;
-		border-radius: 3px;
+		border-radius: 5px;
 	}
 	.logo {
 		font-size: 30px !important;
