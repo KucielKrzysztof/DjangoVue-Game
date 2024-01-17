@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Scoreboard</title>
+	</head>
+	<body>
+		<h1>Scoreboard</h1>
+
+		<table border="1">
+			<tr>
+				<th>Player Name</th>
+				<th>Score</th>
+			</tr>
+			{% for score in scores %}
+			<tr>
+				<td>{{ score.player_name }}</td>
+				<td>{{ score.max_score }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</body>
+</html>
