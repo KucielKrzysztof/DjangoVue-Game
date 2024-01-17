@@ -47,6 +47,7 @@ button:hover {
 .hover_bordered_button:hover {
 	border: 2px solid aqua;
 	border-radius: 5px;
+	background-color: aqua !important;
 }
 @media (max-width: 700px) {
 	body {

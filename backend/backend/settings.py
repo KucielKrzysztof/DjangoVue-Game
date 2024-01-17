@@ -137,4 +137,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
+    "http://192.168.1.106:8080",
 ]

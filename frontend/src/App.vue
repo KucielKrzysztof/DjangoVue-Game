@@ -66,6 +66,14 @@
 
 					<div v-else-if="gameOver">
 						<h2><span style="color: red">Game Over</span></h2>
+						<h2>Round result:</h2>
+						<div style="display: flex; justify-content: center; align-items: center; gap: 32px">
+							<p v-if="playerMove">Your move:</p>
+							<p v-if="opponentMove">Enemy Move:</p>
+						</div>
+						<img :src="require(`@/assets/${playerMove}.png`)" alt="Player's Move" />
+						VS
+						<img :src="require(`@/assets/${opponentMove}.png`)" alt="Oponent's move" />
 						<p>
 							Your streak points:<span style="color: red">{{ streakPoints }}</span>
 						</p>
@@ -98,7 +106,7 @@ export default {
 			this.gameStarted = true;
 		},
 		goToScoreboard() {
-			window.location.href = "http://localhost:8000/scoreboard";
+			window.location.href = "http://192.168.1.106:8000/scoreboard";
 		},
 		makeMove(move) {
 			this.playerMove = move;
@@ -135,7 +143,7 @@ export default {
 			};
 			// Wysyłamy dane na backend za pomocą żądania POST
 			axios
-				.post("http://localhost:8000/api/submit_score/", dataToSend)
+				.post("http://192.168.1.106:8000/api/submit_score/", dataToSend)
 				.then((response) => {
 					console.log(response.data.message);
 					window.location.reload();
