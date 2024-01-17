@@ -1,22 +1,51 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 	<head>
 		<title>Scoreboard</title>
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			tyle="text/css"
+			href="{% static 'css/main.min.css'%}"
+		/>
+		<link rel="stylesheet" tyle="text/css" href="{% static 'css/style.css'%}" />
 	</head>
 	<body>
-		<h1>Scoreboard</h1>
+		<div class="container">
+			{% comment %}
+			<div class="box-element">
+				<button><a href="http://localhost:8080">Home</a></button>
+			</div>
+			{% endcomment %}
+			<h1 class="text-center my-4">Scoreboard</h1>
 
-		<table border="1">
-			<tr>
-				<th>Player Name</th>
-				<th>Score</th>
-			</tr>
-			{% for score in scores %}
-			<tr>
-				<td>{{ score.player_name }}</td>
-				<td>{{ score.max_score }}</td>
-			</tr>
-			{% endfor %}
-		</table>
+			<div class="box-element col-lg-7 mx-auto">
+				<div class="row">
+					<div class="col-lg-2">Rank:</div>
+					<div class="col">Player Name:</div>
+					<div class="col">Score:</div>
+				</div>
+				{% for score in scores %}
+				<div class="row border-top">
+					<div class="col-lg-2">{{ forloop.counter }}</div>
+					<div class="col">{{ score.player_name }}</div>
+					<div class="col">{{ score.max_score }}</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
 	</body>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </html>

@@ -1,48 +1,103 @@
 <template>
-	<div id="app">
-		<h1>Rock Paper Scissors Game</h1>
+	<b-container>
+		<b-row align-h="center">
+			<b-col xs="12" md="8" lg="6">
+				<div id="app">
+					<div class="logo">
+						Rock Paper Scissors <br />
+						Game
+					</div>
 
-		<!-- Show the start button if the game hasn't started -->
-		<div v-if="!gameStarted">
-			<button @click="startGame">Start</button>
-			<button @click="goToScoreboard">Scoreboard</button>
-		</div>
+					<!-- Menu gry/Starting Page coś takiego-->
+					<div v-if="!gameStarted">
+						<div class="menu-buttons">
+							<button @click="startGame" class="aqua">Start</button>
+							<button @click="goToScoreboard" class="aqua">Scoreboard</button>
+						</div>
+					</div>
 
-		<!-- Show the game interface if the game has started -->
-		<div v-else-if="!gameOver">
-			<p>Streak: {{ streakPoints }}</p>
-			<h2>Choose your move:</h2>
-			<button @click="makeMove('rock')">Rock</button>
-			<button @click="makeMove('paper')">Paper</button>
-			<button @click="makeMove('scissors')">Scissors</button>
-			<p v-if="playerMove">Your move: {{ playerMove }}</p>
-			<p v-if="opponentMove">Opponent's move: {{ opponentMove }}</p>
-			<p v-if="gameResult">{{ gameResult }}</p>
-		</div>
+					<!-- Po wystartowaniu gry-->
+					<div v-else-if="!gameOver">
+						<p style="color: gold">
+							Streak: <span style="color: red">{{ streakPoints }}</span>
+						</p>
+						<h2>Choose your move:</h2>
+						<button @click="makeMove('rock')" class="hover_bordered_button">
+							<img :src="require('@/assets/rock.png')" alt="Rock" />
+						</button>
+						<button @click="makeMove('paper')" class="hover_bordered_button">
+							<img :src="require('@/assets/paper.png')" alt="Paper" />
+						</button>
+						<button @click="makeMove('scissors')" class="hover_bordered_button">
+							<img :src="require('@/assets/scissors.png')" alt="Scissors" />
+						</button>
+						<h2>Round result:</h2>
+						<div
+							style="
+								display: flex;
+								justify-content: center;
+								align-items: center;
+							"
+						>
+							<p v-if="playerMove">
+								Your move&gt;
+								<img
+									:src="require(`@/assets/${playerMove}.png`)"
+									alt="Player's Move"
+								/>
+							</p>
+							<p v-if="opponentMove">
+								VS
+								<img
+									:src="require(`@/assets/${opponentMove}.png`)"
+									alt="Oponent's move"
+								/>
+								&lt;Oponent's Move
+							</p>
+						</div>
+						<p v-if="gameResult">
+							Game Result: <span style="color: gold">{{ gameResult }}</span>
+						</p>
+					</div>
 
-		<!-- <div v-else>
-			<h2>Game Over</h2>
-			<p>Your streak points: {{ streakPoints }}</p>
-			<label for="playerName">Enter your name:</label>
-			<input v-model="playerName" id="playerName" type="text" />
-			<button @click="submitScore">Submit Score</button>
-		</div> -->
-		<div v-if="gameOver && streakPoints > 0">
-			<h2>Game Over</h2>
-			<p>Your streak points: {{ streakPoints }}</p>
-			<label for="playerName">Enter your name:</label>
-			<input v-model="playerName" id="playerName" type="text" />
-			<button @click="submitScore">Submit Score</button>
-		</div>
-		<div v-else-if="gameOver">
-			<h2>Game Over</h2>
-			<p>Your streak points: {{ streakPoints }}</p>
-			<p>
-				Sorry, you didn't score any points this time. Better luck next time!
-			</p>
-			<button @click="reloadPage">Retry</button>
-		</div>
-	</div>
+					<!-- Zakończenie gry -->
+					<div v-if="gameOver && streakPoints > 0">
+						<h2>Game Over</h2>
+						<p>
+							Your streak points:
+							<span style="color: red">{{ streakPoints }}</span>
+						</p>
+						<label for="playerName">Enter your name:</label>
+						<input v-model="playerName" id="playerName" type="text" />
+						<br />
+						<button
+							@click="submitScore"
+							class="bordered_button"
+							style="margin-top: 10px; margin-bottom: 10px"
+						>
+							Submit Score
+						</button>
+						<br /><button @click="reloadPage" class="bordered_button">
+							Retry
+						</button>
+					</div>
+
+					<div v-else-if="gameOver">
+						<h2><span style="color: red">Game Over</span></h2>
+						<p>
+							Your streak points:
+							<span style="color: red">{{ streakPoints }}</span>
+						</p>
+						<p>
+							Sorry, you didn't score any points this time. Better luck next
+							time!
+						</p>
+						<button @click="reloadPage" class="bordered_button">Retry</button>
+					</div>
+				</div>
+			</b-col>
+		</b-row>
+	</b-container>
 </template>
 
 <script>
@@ -62,7 +117,6 @@ export default {
 	},
 	methods: {
 		startGame() {
-			// Add this method
 			this.gameStarted = true;
 		},
 		goToScoreboard() {
@@ -88,7 +142,6 @@ export default {
 				this.gameResult = "win";
 				this.streakPoints++;
 			} else {
-				// Player loses
 				this.gameOver = true;
 			}
 		},
@@ -96,7 +149,6 @@ export default {
 			window.location.reload();
 		},
 		submitScore() {
-			// Implement logic to submit score to scoreboard
 			console.log(`Player: ${this.playerName}, Score: ${this.streakPoints}`);
 			// Tworzymy obiekt z danymi do wysłania na backend
 			const dataToSend = {
@@ -111,8 +163,7 @@ export default {
 					window.location.reload();
 				})
 				.catch((error) => {
-					console.error("Error submitting score:", error);
-					// Tutaj możesz obsłużyć błąd, jeśli zachodzi
+					console.error("NIE DZIAŁA XD", error);
 				});
 		},
 	},
@@ -125,14 +176,10 @@ export default {
 </script>
 
 <style>
+@import "./styles/main.min.css";
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 #app {
 	text-align: center;
 	margin-top: 60px;
-}
-
-button {
-	margin: 10px;
-	padding: 5px 10px;
-	font-size: 16px;
 }
 </style>

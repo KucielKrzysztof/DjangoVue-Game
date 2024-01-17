@@ -1,0 +1,47 @@
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+body {
+	background-color: #000000;
+	font-family: "Press Start 2P", cursive;
+	color: rgb(255, 255, 255);
+}
+.logo {
+	font-size: 50px !important;
+	color: aqua !important;
+	margin-bottom: 100px !important;
+}
+button {
+	margin: 0px;
+	padding: 5px 10px;
+	font-size: 30px;
+	border: none;
+	background: transparent;
+	color: rgb(255, 255, 255);
+}
+button:hover {
+	color: aqua;
+}
+.menu-buttons {
+	display: flex;
+	flex-direction: column; /* Makes the buttons stack vertically */
+	align-items: center; /* Centers the buttons horizontally */
+	gap: 0px;
+}
+.aqua:hover {
+	color: aqua !important;
+}
+.bordered_button {
+	border: 2px solid white;
+	border-radius: 5px;
+}
+.bordered_button:hover {
+	border: 2px solid aqua !important;
+	border-radius: 5px;
+}
+.hover_bordered_button {
+	border: 2px solid transparent;
+	border-radius: 5px;
+}
+.hover_bordered_button:hover {
+	border: 2px solid aqua;
+	border-radius: 5px;
+}
