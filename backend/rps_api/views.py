@@ -8,6 +8,9 @@ from .models import *
 from .serializers import PlayerScoreSerializer
 from django.shortcuts import render
 from django.db.models import Max
+from django.http import JsonResponse
+from django.core import serializers
+
 
 
 @api_view(['POST'])
@@ -24,5 +27,5 @@ def submit_score(request):
 @api_view(['GET'])
 def scoreboard(request):
     scores = PlayerScore.objects.values('player_name').annotate(max_score=Max('score')).order_by('-max_score')
-    context = {'scores': scores}
-    return render(request, 'scoreboard.html', context)
+    scores_list = list(scores)  # important: convert the QuerySet to a list object
+    return JsonResponse(scores_list, safe=False)
