@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'rest_framework_simplejwt',
     'rps_api',
 ]
 
@@ -139,3 +140,12 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
     "http://192.168.1.106:8080",
 ]
+
+# rest autenthication config
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}

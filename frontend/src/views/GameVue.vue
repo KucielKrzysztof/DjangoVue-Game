@@ -10,7 +10,10 @@
 			<div class="menu-buttons">
 				<button @click="startGame" class="aqua menu-button">Start</button>
 				<router-link to="/scoreboard" class="aqua menu-button">Scoreboard</router-link>
-				<router-link to="/register" class="aqua menu-button">Register/Login</router-link>
+				<router-link v-if="!isUserLoggedIn" to="/login" class="aqua menu-button">login</router-link>
+				<router-link v-if="!isUserLoggedIn" to="/register" class="aqua menu-button">Register</router-link>
+				<router-link to="/reportbug" class="aqua menu-button">Report Bug</router-link>
+				<button v-if="isUserLoggedIn" @click="logout" class="aqua menu-button" style="color: red !important">Logout</button>
 			</div>
 		</div>
 
@@ -55,10 +58,13 @@
 				Your streak points:
 				<span style="color: red">{{ streakPoints }}</span>
 			</p>
-			<label for="playerName">Enter your name:</label>
-			<input v-model="playerName" id="playerName" type="text" maxlength="6" />
+			<label v-if="!isUserLoggedIn">Enter your name:</label>
+			<input v-if="!isUserLoggedIn" v-model="playerName" id="playerName" type="text" maxlength="6" />
+			<p v-else style="color: gold">Your name: {{ playerName }}</p>
 			<br />
-			<button @click="submitScore" class="bordered_button" style="margin-top: 10px; margin-bottom: 10px">Submit Score</button>
+			<button @click="submitScore" class="btn" style="margin-top: 10px; margin-bottom: 10px; background-color: orange !important">
+				Submit Score
+			</button>
 			<br /><button @click="reloadPage" class="btn btn-primary">Retry</button>
 		</div>
 
@@ -82,7 +88,27 @@
 </template>
 <script>
 import axios from "axios";
+//import { watchEffect, ref } from "vue";
 export default {
+	//do testu ten setup tylko potem usune
+	/* setup() {
+		const user = ref(JSON.parse(localStorage.getItem("user")) || null);
+		const accessToken = ref(localStorage.getItem("accessToken") || null);
+		const refreshToken = ref(localStorage.getItem("refreshToken") || null);
+
+		setInterval(() => {
+			user.value = JSON.parse(localStorage.getItem("user")) || null;
+			accessToken.value = localStorage.getItem("accessToken") || null;
+			refreshToken.value = localStorage.getItem("refreshToken") || null;
+		}, 1000);
+
+		watchEffect(() => {
+			console.log("User data:", user.value);
+			console.log("Access Token:", accessToken.value);
+			console.log("Refresh Token:", refreshToken.value);
+		});
+	}, */
+	//dotąd usuwaj
 	data() {
 		return {
 			moves: ["rock", "paper", "scissors"],
@@ -93,12 +119,37 @@ export default {
 			playerName: "",
 			gameStarted: false,
 			gameResult: null,
+			isUserLoggedIn: false,
 		};
+	},
+	created() {
+		this.isUserLoggedIn = !!localStorage.getItem("user");
+		const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
+
+		if (user && user.username) {
+			this.playerName = user.username;
+		}
 	},
 	components: {},
 	methods: {
 		startGame() {
 			this.gameStarted = true;
+		},
+		logout() {
+			// Usuń dane użytkownika z localStorage
+			localStorage.removeItem("user");
+			localStorage.removeItem("accessToken");
+			localStorage.removeItem("refreshToken");
+			// Ustaw dane na null to też do testów mam
+			this.user = null;
+			this.accessToken = null;
+			this.refreshToken = null;
+
+			// Ustaw flagę isUserLoggedIn na false
+			this.isUserLoggedIn = false;
+
+			// Przekieruj użytkownika do strony logowania
+			this.$router.push("/");
 		},
 		makeMove(move) {
 			this.playerMove = move;
@@ -127,6 +178,16 @@ export default {
 			window.location.reload();
 		},
 		submitScore() {
+			const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
+			console.log(user); // log the user data
+			if (localStorage.getItem("user")) {
+				this.playerName = user.username;
+			}
+
+			if (!this.playerName) {
+				console.error("Player name is undefined.error");
+				return;
+			}
 			console.log(`Player: ${this.playerName}, Score:
 ${this.streakPoints}`);
 			const dataToSend = { player_name: this.playerName, score: this.streakPoints };

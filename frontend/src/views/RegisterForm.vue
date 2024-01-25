@@ -46,6 +46,12 @@
 				<button type="submit" :disabled="submittedData">Register</button>
 			</form>
 		</div>
+		<div v-if="!submittedData" class="box-element col-12 col-sm-10 col-md-8 col-lg-7 mx-auto transparent-bg">
+			<div class="login-button">
+				<span>Already have account?</span>
+				<button class="btn" @click="goToLogin" style="background-color: orange; margin-left: 10px">Login</button>
+			</div>
+		</div>
 		<div v-if="submittedData" class="box-element col-12 col-sm-10 col-md-8 col-lg-7 mx-auto transparent-bg">
 			<div class="card-header" style="color: green !important">Successfully registered</div>
 			<div class="card-header">Your data:</div>
@@ -56,7 +62,7 @@
 			</ul>
 			<div class="login-button">
 				<span class="flames">Now you can login:</span>
-				<button class="btn btn-primary">Login</button>
+				<button class="btn" @click="goToLogin" style="background-color: orange">Login</button>
 			</div>
 		</div>
 	</div>
@@ -66,6 +72,7 @@ import { reactive, nextTick, toRaw, ref } from "vue";
 import { required, email } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 import axios from "axios";
+import { useRouter } from "vue-router";
 
 export default {
 	setup() {
@@ -96,6 +103,20 @@ export default {
 
 		const submittedData = ref(null);
 		const errorMessage = ref(null);
+		const router = useRouter();
+		function goToLogin() {
+			if (submittedData.value) {
+				router.push({
+					path: "/login",
+					query: {
+						username: submittedData.value.username,
+						//hasła nie przekazujemy bo to trohce nie na miejscu XD
+					},
+				});
+			} else {
+				router.push("/login");
+			}
+		}
 
 		async function submitForm() {
 			console.log("submitForm is called");
@@ -143,7 +164,7 @@ export default {
 			}
 		}
 
-		return { form, v$, submitForm, submittedData, errorMessage };
+		return { form, v$, submitForm, submittedData, errorMessage, goToLogin };
 	},
 };
 </script>

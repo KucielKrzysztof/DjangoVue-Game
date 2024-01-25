@@ -8,6 +8,7 @@ from rest_framework.decorators import renderer_classes
 from .models import *
 from .serializers import PlayerScoreSerializer
 from .serializers import UserRegistrationSerializer
+from .serializers import UserLoginSerializer
 from django.shortcuts import render
 from django.db.models import Max
 from django.http import JsonResponse
@@ -15,6 +16,9 @@ from django.core import serializers
 import json
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.db import IntegrityError
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import authenticate
 
 
 
@@ -38,7 +42,6 @@ def scoreboard(request):
 
 
 
-from django.db import IntegrityError
 
 class RegisterUserView(APIView):
     def post(self, request, *args, **kwargs):
@@ -57,3 +60,26 @@ class RegisterUserView(APIView):
                 return Response({'success': False, 'message': 'Username is already taken'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({'success': False, 'message': 'Registration error', 'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+class UserLoginView(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = UserLoginSerializer(data=request.data)
+        try:
+            serializer.is_valid(raise_exception=True)
+            
+            # Sprawdź użytkownika i hasło
+            # Jeśli są poprawne, wygeneruj tokeny JWT
+            # Przykładowa logika logowania
+            user = authenticate(username=serializer.validated_data['username'], password=serializer.validated_data['password'])
+            if user:
+                print(f"Attempting login for user: {serializer.validated_data['username']}")  # debug
+
+                refresh = RefreshToken.for_user(user)
+                access_token = str(refresh.access_token)
+                refresh_token = str(refresh)
+                return Response({'success': True, 'access_token': access_token, 'refresh_token': refresh_token,'username': user.username}, status=status.HTTP_200_OK)
+            else:
+                return Response({'success': False, 'message': 'Invalid login or password'}, status=status.HTTP_401_UNAUTHORIZED)
+        except Exception as e:
+            return Response({'success': False, 'message': 'Login error', 'errors': str(e)}, status=status.HTTP_400_BAD_REQUEST)
