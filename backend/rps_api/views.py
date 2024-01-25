@@ -14,6 +14,7 @@ from django.http import JsonResponse
 from django.core import serializers
 import json
 from django.contrib.auth.models import User
+from django.db import IntegrityError
 
 
 
@@ -37,28 +38,22 @@ def scoreboard(request):
 
 
 
+from django.db import IntegrityError
+
 class RegisterUserView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = UserRegistrationSerializer(data=request.data)
         if serializer.is_valid():
-            user = User.objects.create_user(
-                username=serializer.validated_data['username'],
-                email=serializer.validated_data['email'],
-                password=serializer.validated_data['password'],
-            )
-            # Tutaj możesz zapisywać dodatkowe pola jak 'terms' i 'location' w zależności od twojego modelu użytkownika
+            try:
+                user = User.objects.create_user(
+                    username=serializer.validated_data['username'],
+                    email=serializer.validated_data['email'],
+                    password=serializer.validated_data['password'],
+                )
+                # Tutaj możesz zapisywać dodatkowe pola jak 'terms' i 'location' w zależności od twojego modelu użytkownika
 
-            return Response({'success': True, 'message': 'Rejestracja udana'}, status=status.HTTP_201_CREATED)
+                return Response({'success': True, 'message': 'Rejestracja udana'}, status=status.HTTP_201_CREATED)
+            except IntegrityError:
+                return Response({'success': False, 'message': 'Nazwa użytkownika jest już zajęta'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({'success': False, 'message': 'Błąd rejestracji', 'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-#class RegisterUserView(APIView):
-#    def post(self, request, *args, **kwargs):
-#        serializer = UserRegistrationSerializer(data=request.data)
-#        if serializer.is_valid():
-#            # Przykładowa logika rejestracji
-#            
-#            # User.objects.create(username=serializer.validated_data['username'], email=serializer.#validated_data['email'], password=serializer.validated_data['password'])
-#
-#            return Response({'success': True, 'message': 'Rejestracja udana'}, status=status.#HTTP_201_CREATED)
-#        else:
-#            return Response({'success': False, 'message': 'Błąd rejestracji', 'errors': serializer.#errors}, status=status.HTTP_400_BAD_REQUEST) 

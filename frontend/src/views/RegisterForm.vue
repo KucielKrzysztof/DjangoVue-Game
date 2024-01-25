@@ -1,6 +1,7 @@
 <template>
 	<div class="container">
 		<h1 class="scoreboard-title text-center my-4">Register</h1>
+		<p v-if="errorMessage" class="error">{{ errorMessage }}</p>
 		<form @submit.prevent="submitForm">
 			<div>
 				<label for="username">Username:</label>
@@ -94,6 +95,7 @@ export default {
 		const v$ = useVuelidate(rules, form);
 
 		const submittedData = ref(null);
+		const errorMessage = ref(null);
 
 		async function submitForm() {
 			console.log("submitForm is called");
@@ -114,31 +116,34 @@ export default {
 			}
 
 			console.log("Form is valid", form);
-			submittedData.value = toRaw(form);
-			// Here you would send the form data to your backend
-			// Przygotuj dane do wysłania
 			/* const formData = toRaw(form); */
 			//const { confirmPassword, ...formData } = toRaw(form);
 			let formData = toRaw(form);
 			delete formData.confirmPassword;
 
 			try {
-				// Wyślij dane do Django
 				const response = await axios.post("http://localhost:8000/api/register/", formData);
 
-				// Sprawdź odpowiedź od Django
 				if (response.data.success) {
+					submittedData.value = toRaw(form);
 					console.log("Rejestracja udana");
-					// Tutaj możesz dodać logikę przeniesienia użytkownika na stronę potwierdzenia
+					errorMessage.value = null;
 				} else {
 					console.error("Błąd rejestracji:", response.data.message);
+					errorMessage.value = response.data.message;
 				}
 			} catch (error) {
 				console.error("Błąd wysyłania danych:", error);
+				if (error.response && error.response.data) {
+					// Jeśli serwer zwróci konkretną wiadomośc to pokaże ją NIE ZAPOMNIJ ŻE TO TUTAJ
+					errorMessage.value = error.response.data.message;
+				} else {
+					errorMessage.value = "Błąd wysyłania danych. Spróbuj ponownie później.";
+				}
 			}
 		}
 
-		return { form, v$, submitForm, submittedData };
+		return { form, v$, submitForm, submittedData, errorMessage };
 	},
 };
 </script>
