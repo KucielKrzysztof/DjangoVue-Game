@@ -64,6 +64,7 @@
 import { reactive, nextTick, toRaw, ref } from "vue";
 import { required, email } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
+import axios from "axios";
 
 export default {
 	setup() {
@@ -115,6 +116,26 @@ export default {
 			console.log("Form is valid", form);
 			submittedData.value = toRaw(form);
 			// Here you would send the form data to your backend
+			// Przygotuj dane do wysłania
+			/* const formData = toRaw(form); */
+			//const { confirmPassword, ...formData } = toRaw(form);
+			let formData = toRaw(form);
+			delete formData.confirmPassword;
+
+			try {
+				// Wyślij dane do Django
+				const response = await axios.post("http://localhost:8000/api/register/", formData);
+
+				// Sprawdź odpowiedź od Django
+				if (response.data.success) {
+					console.log("Rejestracja udana");
+					// Tutaj możesz dodać logikę przeniesienia użytkownika na stronę potwierdzenia
+				} else {
+					console.error("Błąd rejestracji:", response.data.message);
+				}
+			} catch (error) {
+				console.error("Błąd wysyłania danych:", error);
+			}
 		}
 
 		return { form, v$, submitForm, submittedData };
