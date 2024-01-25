@@ -57,7 +57,17 @@
 			<div class="card-header">Your data:</div>
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item transparent-bg" v-for="(value, key) in submittedData" :key="key">
-					<strong>{{ key }}:</strong> {{ value }}
+					<strong>{{ key }}:</strong>
+					<span v-if="key !== 'password'">{{ value }}</span>
+					<span v-else>
+						<input
+							style="width: 10ch; color: gold !important; background-color: transparent !important; border: none !important; outline: none !important"
+							:type="showPassword ? 'text' : 'password'"
+							:value="value"
+							readonly
+						/>
+						<button class="flames" @click="showPassword = !showPassword">{{ showPassword ? "hide" : "show" }}</button>
+					</span>
 				</li>
 			</ul>
 			<div class="login-button">
@@ -84,7 +94,7 @@ export default {
 			terms: false,
 			location: "",
 		});
-
+		const showPassword = ref(false);
 		const passwordMatch = () => {
 			return form.password === form.confirmPassword;
 		};
@@ -164,7 +174,7 @@ export default {
 			}
 		}
 
-		return { form, v$, submitForm, submittedData, errorMessage, goToLogin };
+		return { form, v$, submitForm, submittedData, errorMessage, goToLogin, showPassword };
 	},
 };
 </script>

@@ -29,6 +29,8 @@ const routes = [
 		name: "ReportBug",
 		component: ReportBug,
 	},
+	//ściezka wildcard, przekierowuje na stronę główną
+	{ path: "/:pathMatch(.*)*", redirect: "/" },
 ];
 
 const router = createRouter({
