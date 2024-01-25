@@ -4,6 +4,7 @@
 		<p v-if="errorMessage" class="error">{{ errorMessage }}</p>
 		<div class="form-container transparent-bg">
 			<form @submit.prevent="submitForm">
+				<div v-if="submittedData" class="card-header" style="color: yellow !important">&#128274; Form now in readonyl mode &#128274;</div>
 				<div>
 					<label for="username">Username:</label>
 					<input id="username" v-model="form.username" type="text" :readonly="submittedData" required />
@@ -42,7 +43,7 @@
 						<option value="other">Other</option>
 					</select>
 				</div>
-				<button type="submit">Register</button>
+				<button type="submit" :disabled="submittedData">Register</button>
 			</form>
 		</div>
 		<div v-if="submittedData" class="box-element col-12 col-sm-10 col-md-8 col-lg-7 mx-auto transparent-bg">
@@ -53,6 +54,10 @@
 					<strong>{{ key }}:</strong> {{ value }}
 				</li>
 			</ul>
+			<div class="login-button">
+				<span class="flames">Now you can login:</span>
+				<button class="btn btn-primary">Login</button>
+			</div>
 		</div>
 	</div>
 </template>
@@ -217,5 +222,24 @@ form button:hover {
 		margin-right: 0;
 		margin-bottom: 10px;
 	}
+}
+@keyframes flames {
+	0% {
+		color: #ff0000;
+	}
+	50% {
+		color: #ff8000;
+	}
+	100% {
+		color: #ff0000;
+	}
+}
+
+.flames {
+	animation: flames 1s infinite;
+}
+.login-button {
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 </style>

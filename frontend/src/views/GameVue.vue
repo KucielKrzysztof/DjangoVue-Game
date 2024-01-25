@@ -10,7 +10,7 @@
 			<div class="menu-buttons">
 				<button @click="startGame" class="aqua menu-button">Start</button>
 				<router-link to="/scoreboard" class="aqua menu-button">Scoreboard</router-link>
-				<router-link to="/register" class="aqua menu-button">Register</router-link>
+				<router-link to="/register" class="aqua menu-button">Register/Login</router-link>
 			</div>
 		</div>
 
