@@ -54,6 +54,6 @@ class RegisterUserView(APIView):
 
                 return Response({'success': True, 'message': 'Rejestracja udana'}, status=status.HTTP_201_CREATED)
             except IntegrityError:
-                return Response({'success': False, 'message': 'Nazwa użytkownika jest już zajęta'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'success': False, 'message': 'Username is already taken'}, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({'success': False, 'message': 'Błąd rejestracji', 'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'success': False, 'message': 'Registration error', 'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
