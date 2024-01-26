@@ -28,6 +28,8 @@ button:hover {
 }
 .menu-button {
 	font-size: 30px !important;
+	color: white !important;
+	text-decoration: none !important;
 }
 .aqua:hover {
 	color: aqua !important;
@@ -71,6 +73,34 @@ button:hover {
 		margin-bottom: 100px !important;
 	}
 	/* div {
-		font-size: 12px;
+		scoreboard\/
 	} */
+}
+.scoreboard-title {
+	color: aqua;
+}
+.border-top {
+	border-bottom: 1px solid #dee2e6 !important;
+}
+.gold-text {
+	color: gold;
+}
+.row1:hover {
+	background-color: red;
+}
+.back {
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10px;
+}
+.error {
+	color: red;
+}
+
+@media (max-width: 700px) {
+	.scoreboard-title {
+		font-size: 1.5rem;
+	}
 }
