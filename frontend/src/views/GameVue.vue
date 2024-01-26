@@ -10,7 +10,7 @@
 			<div class="menu-buttons">
 				<button @click="startGame" class="aqua menu-button">Start</button>
 				<router-link to="/scoreboard" class="aqua menu-button">Scoreboard</router-link>
-				<router-link v-if="!isUserLoggedIn" to="/login" class="aqua menu-button">login</router-link>
+				<router-link v-if="!isUserLoggedIn" to="/login" class="aqua menu-button">Login</router-link>
 				<router-link v-if="!isUserLoggedIn" to="/register" class="aqua menu-button">Register</router-link>
 				<router-link to="/reportbug" class="aqua menu-button">Report Bug</router-link>
 				<button v-if="isUserLoggedIn" @click="logout" class="aqua menu-button" style="color: red !important">Logout</button>
@@ -179,7 +179,7 @@ export default {
 		},
 		submitScore() {
 			const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
-			console.log(user); 
+			console.log(user);
 			if (localStorage.getItem("user")) {
 				this.playerName = user.username;
 			}
