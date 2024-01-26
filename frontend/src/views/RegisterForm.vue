@@ -27,12 +27,12 @@
 				</div>
 				<div class="checkbox-container">
 					<label for="terms">Accept Terms and Conditions:</label>
-					<input id="terms" v-model="form.terms" type="checkbox" :readonly="submittedData" required />
+					<input id="terms" v-model="form.terms" type="checkbox" :disabled="submittedData" required />
 					<p v-if="v$.terms.$error" class="error">You must accept the terms and conditions</p>
 				</div>
 				<div>
 					<label for="location">Location:</label>
-					<select id="location" v-model="form.location" :readonly="submittedData" required>
+					<select id="location" v-model="form.location" :disabled="submittedData" required>
 						<option value="">Where are you from</option>
 						<option value="eu">Europe</option>
 						<option value="na">North-America</option>

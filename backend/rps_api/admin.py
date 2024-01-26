@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import PlayerScore
+from .models import *
+
 
 admin.site.register(PlayerScore)
-
+admin.site.register(Reports)

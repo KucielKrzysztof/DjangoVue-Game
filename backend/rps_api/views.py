@@ -39,10 +39,6 @@ def scoreboard(request):
     scores_list = list(scores)  # important: convert the QuerySet to a list object
     return JsonResponse(scores_list, safe=False)
 
-
-
-
-
 class RegisterUserView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = UserRegistrationSerializer(data=request.data)
@@ -83,3 +79,18 @@ class UserLoginView(APIView):
                 return Response({'success': False, 'message': 'Invalid login or password'}, status=status.HTTP_401_UNAUTHORIZED)
         except Exception as e:
             return Response({'success': False, 'message': 'Login error', 'errors': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+@api_view(['POST'])
+def report_bug(request):
+    email = request.data.get('email')
+    bug_title = request.data.get('bug_title')
+    bug_description = request.data.get('bug_description')
+    bug_steps = request.data.get('bug_steps')
+    bug_type = request.data.get('bug_type')
+    bug_priority = request.data.get('bug_priority')
+
+    if email and bug_title and bug_description and bug_steps and bug_type and bug_priority:
+        Reports.objects.create(email=email, bug_title=bug_title, bug_description=bug_description, bug_steps=bug_steps, bug_type=bug_type, bug_priority=bug_priority)
+        return Response({"message": "Bug reported successfully."})
+    else:
+        return Response({"message": "Invalid data."}, status=400)
