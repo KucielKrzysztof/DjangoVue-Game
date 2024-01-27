@@ -15,6 +15,8 @@
 
 ## How to Run the Project
 
+### 1st Method(STANDARD):
+
 1. Clone the repository:
 
 ```bash
@@ -73,3 +75,29 @@ open http://localhost:8080
 ```
 xdg-open http://localhost:8080
 ```
+
+### 2nd Method(FOR DOCKER):
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/KucielKrzysztof/DjangoVue-Game.git
+```
+
+2. Navigate to the cloned repository:
+
+```bash
+cd DjangoVue-Game
+```
+
+3. build with docker
+
+```bash
+docker-compose up --build
+```
+
+4. Open your browser and go to
+   <br>
+   [http://localhost:8080/](http://localhost:8080/)
+
+5. If somethign is not working reload django-conatainer(if it turns on too fast it may not connect to the database)
