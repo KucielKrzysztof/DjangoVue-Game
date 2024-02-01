@@ -13,6 +13,29 @@
 - 📝 Register and log in.
 - 🛠️ Submit bug reports or issues through the Bug Report feature.
 
+## Screenshots
+
+### Main page:
+
+![screen1](/backend/static/images/screenshot1.png)
+
+### Scoreboard:
+
+![screen1](/backend/static/images/screenshot2.png)
+
+### Game:
+
+![screen1](/backend/static/images/screenshot5.png)
+![screen1](/backend/static/images/screenshot6.png)
+
+### Login page:
+
+![screen1](/backend/static/images/screenshot3.png)
+
+### Register page:
+
+![screen1](/backend/static/images/screenshot4.png)
+
 ## How to Run the Project
 
 ### 1st Method(STANDARD):
