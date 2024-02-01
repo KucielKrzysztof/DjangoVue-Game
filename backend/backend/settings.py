@@ -17,7 +17,7 @@ import os
 ##BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_DIR = os.path.dirname(BASE_DIR)
-#DATABASE_DIR = os.path.join(PROJECT_DIR, 'database')
+DATABASE_DIR = os.path.join(PROJECT_DIR, 'database')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -80,24 +80,25 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        ##'NAME': BASE_DIR / 'db.sqlite3',
-#        'NAME': os.path.join(DATABASE_DIR, 'db.sqlite3'),
-#    }
-#}
+#FOR LOCAL:
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'db',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        ##'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(DATABASE_DIR, 'db.sqlite3'),
     }
 }
+#FOR DOCKER:
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'postgres',
+#        'USER': 'postgres',
+#        'PASSWORD': 'postgres',
+#        'HOST': 'db',
+#        'PORT': '5432',
+#    }
+#}
 
 
 # Password validation

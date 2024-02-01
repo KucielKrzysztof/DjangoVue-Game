@@ -90,14 +90,36 @@ git clone https://github.com/KucielKrzysztof/DjangoVue-Game.git
 cd DjangoVue-Game
 ```
 
-3. build with docker
+3. Change db for docker in settings.py
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': '5432',
+    }
+}
+```
+
+4. build with docker
 
 ```bash
 docker-compose up --build
 ```
 
-4. Open your browser and go to
+5. In Django's container cli run migrations
+
+```python
+python manage.py makemigrations
+python manage.py migrate
+```
+
+6. Open your browser and go to
    <br>
    [http://localhost:8080/](http://localhost:8080/)
 
-5. If somethign is not working reload django-conatainer(if it turns on too fast it may not connect to the database)
+7. If somethign is not working reload django-conatainer(if it turns on too fast it may not connect to the database)
