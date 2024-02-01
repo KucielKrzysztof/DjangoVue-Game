@@ -143,15 +143,8 @@ DATABASES = {
 docker-compose up --build
 ```
 
-5. In Django's container cli run migrations
-
-```python
-python manage.py makemigrations
-python manage.py migrate
-```
-
-6. Open your browser and go to
+5. Open your browser and go to
    <br>
    [http://localhost:8080/](http://localhost:8080/)
 
-7. If somethign is not working reload django-conatainer(if it turns on too fast it may not connect to the database)
+6. If something is not working reload django-conatainer.
