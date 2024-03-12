@@ -1,6 +1,6 @@
 ![Rock, Paper, Scissors Game](/backend/static/images/rps.png)
 
-# Welcome to the Rock Paper Scissors Game! This project is a simple web-based implementation of the classic Rock Paper Scissors game with retro design using Vue.js and Django.
+# Welcome to the Rock Paper Scissors Game! This project is a simple web-based implementation of the classic Rock Paper Scissors game with Arcade design using Vue.js and Django.
 
 ## Table of Contents
 
